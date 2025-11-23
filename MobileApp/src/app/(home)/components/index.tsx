@@ -1,0 +1,132 @@
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { Accordion } from '../heroui-native';
+import { View } from 'react-native';
+import { withUniwind } from 'uniwind';
+import { AppText } from '../../../components/app-text';
+import { ScreenScrollView } from '../../../components/screen-scroll-view';
+
+const StyledIonicons = withUniwind(Ionicons);
+
+type Component = {
+  title: string;
+  path: string;
+};
+
+const components: Component[] = [
+  {
+    title: 'Accordion',
+    path: 'accordion',
+  },
+  {
+    title: 'Avatar',
+    path: 'avatar',
+  },
+  {
+    title: 'Button',
+    path: 'button',
+  },
+  {
+    title: 'Card',
+    path: 'card',
+  },
+  {
+    title: 'Checkbox',
+    path: 'checkbox',
+  },
+  {
+    title: 'Chip',
+    path: 'chip',
+  },
+  {
+    title: 'Dialog',
+    path: 'dialog',
+  },
+  {
+    title: 'Divider',
+    path: 'divider',
+  },
+  {
+    title: 'Error View',
+    path: 'error-view',
+  },
+  {
+    title: 'Form Field',
+    path: 'form-field',
+  },
+  {
+    title: 'Popover',
+    path: 'popover',
+  },
+  {
+    title: 'Pressable Feedback',
+    path: 'pressable-feedback',
+  },
+  {
+    title: 'Radio Group',
+    path: 'radio-group',
+  },
+  {
+    title: 'Scroll Shadow',
+    path: 'scroll-shadow',
+  },
+  {
+    title: 'Select',
+    path: 'select',
+  },
+  {
+    title: 'Skeleton',
+    path: 'skeleton',
+  },
+  {
+    title: 'Spinner',
+    path: 'spinner',
+  },
+  {
+    title: 'Surface',
+    path: 'surface',
+  },
+  {
+    title: 'Switch',
+    path: 'switch',
+  },
+  {
+    title: 'Tabs',
+    path: 'tabs',
+  },
+  {
+    title: 'Text Field',
+    path: 'text-field',
+  },
+];
+
+export default function App() {
+  const router = useRouter();
+
+  return (
+    <ScreenScrollView contentContainerClassName="px-4">
+      <View className="h-5" />
+      <Accordion isCollapsible={false} variant="surface">
+        {components.map((item) => (
+          <Accordion.Item key={item.title} value={item.title}>
+            <Accordion.Trigger
+              highlightOpacity={0.25}
+              onPress={() => router.push(`/components/${item.path}`)}
+            >
+              <AppText className="text-foreground text-base ml-1">
+                {item.title}
+              </AppText>
+              <Accordion.Indicator>
+                <StyledIonicons
+                  name="chevron-forward"
+                  size={16}
+                  className="text-muted"
+                />
+              </Accordion.Indicator>
+            </Accordion.Trigger>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+    </ScreenScrollView>
+  );
+}

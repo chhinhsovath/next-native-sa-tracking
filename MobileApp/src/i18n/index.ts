@@ -1,0 +1,311 @@
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+
+// Khmer translations
+const kh = {
+  translation: {
+    // Authentication
+    login: "ចូលប្រើប្រាស់",
+    register: "ចុះឈ្មោះ",
+    email: "អ៊ីម៉ែល",
+    password: "ពាក្យសម្ងាត់",
+    firstName: "នាមខាងមុខ",
+    lastName: "នាមខាងក្រោយ",
+    position: "តំណែង",
+    department: "ដេប៉ាតឺម៉ង់",
+    confirmPassword: "បញ្ជាក់ពាក្យសម្ងាត់",
+    alreadyHaveAccount: "មាន​គណនី​រួច​ហើយ​?",
+    dontHaveAccount: "មិនទាន់មាន​គណនី​?",
+    enterCredentials: "បញ្ចូល​ព័ត៌មាន​សម្ងាត់​របស់​អ្នក​ដើម្បី​ចូល​ប្រើ​ប្រាស់​កម្មវិធី​តាមដាន​",
+    createAccount: "បង្កើត​គណនី​សម្រាប់​កម្មវិធី​តាមដាន​",
+    welcome: "សូមស្វាគមន៍",
+    role: "តួនាទី",
+    
+    // Navigation
+    attendance: "ការ​ចូល​ធ្វើ​ការ",
+    leaveRequest: "សំណើ​សុំ​ច្បាប់",
+    missionRequest: "សំណើ​សុំ​បេសកកម្ម",
+    workPlan: "ផែនការងារ",
+    profile: "ប្រវត្តិ​អ្នក​ប្រើ",
+    adminDashboard: "ផ្ទាំង​គ្រប់​គ្រង​របស់​អ្នក​គ្រប់​គ្រង",
+    approvals: "ការ​អនុម័ត",
+    reports: "របាយការណ៍",
+    workPlanTracking: "តាមដាន​ផែនការងារ",
+    
+    // Attendance
+    checkInAM: "ចូល​ពេល​ព្រឹក",
+    checkOutAM: "ចាក​ចេញ​ពេល​ព្រឹក",
+    checkInPM: "ចូល​ពេល​រសៀល",
+    checkOutPM: "ចាក​ចេញ​ពេល​រសៀល",
+    currentLocation: "ទីតាំង​បច្ចុប្បន្ន",
+    getTime: "ទាញ​យក​ពេលវេលា...",
+    gettingLocation: "កំពុង​ទាញ​យក​ទីតាំង...",
+    noteGeofence: "កំណត់​សំគាល់៖ អ្នក​ត្រូវ​នៅ​ក្នុង​វិសាល​កោន​ចម្ងាយ​ 50 ម៉ែត្រ​ពី​ទីតាំង​ការិយាល័យ​ដើម្បី​ចូល​ឬ​ចាក​ចេញ​",
+    
+    // Leave Request
+    reasonForLeave: "មូលហេតុ​នៃ​ការ​សុំ​ច្បាប់",
+    enterReason: "បញ្ចូល​មូលហេតុ​នៃ​ការ​សុំ​ច្បាប់",
+    startDate: "កាលបរិច្ឆេទ​ចាប់ផ្តើម",
+    endDate: "កាលបរិច្ឆេទ​បញ្ចប់",
+    submitRequest: "ដាក់​ស្នើ​សំណើ",
+    submitting: "កំពុង​ដាក់​ស្នើ...",
+    leaveSubmitSuccess: "ដាក់​ស្នើ​សំណើ​សុំ​ច្បាប់​ដោយ​ជោគជ័យ។ កំពុង​រង់ចាំ​ការ​អនុម័ត។",
+    
+    // Mission Request
+    missionTitle: "ចំណង​ជើង​បេសកកម្ម",
+    enterMissionTitle: "បញ្ចូល​ចំណង​ជើង​បេសកកម្ម",
+    missionDescription: "សេចក្តី​ពិពណ៌នា​បេសកកម្ម",
+    enterMissionDetails: "បញ្ចូល​សេចក្តី​ពិពណ៌នា​បេសកកម្ម",
+    missionSubmitSuccess: "ដាក់​ស្នើ​សំណើ​បេសកកម្ម​ដោយ​ជោគជ័យ។ កំពុង​រង់ចាំ​ការ​អនុម័ត។",
+    
+    // Work Plan
+    workPlanTitle: "ចំណង​ជើង​ផែនការងារ",
+    enterWorkPlanTitle: "បញ្ចូល​ចំណង​ជើង​ផែនការងារ",
+    workPlanDescription: "សេចក្តី​ពិពណ៌នា​ផែនការងារ",
+    enterWorkPlanDetails: "បញ្ចូល​សេចក្តី​ពិពណ៌នា​ផែនការងារ",
+    dueDate: "កាលបរិច្ឆេទ​កំណត់​",
+    status: "ស្ថានភាព",
+    progress: "វឌ្ឍនភាព (%)",
+    enterProgress: "បញ្ចូល​វឌ្ឍនភាព​ជា​ភាគរយ",
+    achievement: "ការ​บรรលផល",
+    enterAchievement: "បញ្ចូល​ការ​บรรលផល (ស្រេច​ចិត្ត)",
+    output: "លទ្ធផល",
+    enterOutput: "បញ្ចូល​លទ្ធផល (ស្រេច​ចិត្ត)",
+    comments: "មតិ​អធិប្បាយ",
+    enterComments: "បញ្ចូល​មតិ​អធិប្បាយ (ស្រេច​ចិត្ត)",
+    createWorkPlan: "បង្កើត​ផែនការងារ",
+    saving: "កំពុង​រក្សា​ទុក...",
+    updateWorkPlan: "ធ្វើ​បច្ចុប្បន្នភាព​ផែនការងារ",
+    
+    // Admin
+    totalUsers: "អ្នក​ប្រើ​សរុប",
+    attendanceRecords: "កំណត់​ត្រា​ការ​ចូល​ធ្វើ​ការ",
+    leaveRequests: "សំណើ​សុំ​ច្បាប់",
+    missionRequests: "សំណើ​សុំ​បេសកកម្ម",
+    quickActions: "សកម្មភាព​រហ័ស",
+    viewPendingApprovals: "មើល​ការ​អនុម័ត​កំពុង​រង់ចា់",
+    generateReports: "បង្កើត​របាយការណ៍",
+    manageUsers: "គ្រប់​គ្រង​អ្នក​ប្រើ",
+    pendingUsers: "អ្នក​ប្រើ​កំពុង​រង់ចា់",
+    pendingLeaves: "សំណើ​ច្បាប់​កំពុង​រង់ចា់",
+    pendingMissions: "សំណើ​បេសកកម្ម​កំពុង​រង់ចា់",
+    approve: "អនុម័ត",
+    reject: "បដិសេធ",
+    noPendingUsers: "គ្មាន​អ្នក​ប្រើ​កំពុង​រង់ចា់",
+    noPendingLeaves: "គ្មាន​សំណើ​ច្បាប់​កំពុង​រង់ចា់",
+    noPendingMissions: "គ្មាន​សំណើ​បេសកកម្ម​កំពុង​រង់ចា់",
+    daily: "ប្រចាំ​ថ្ងៃ",
+    weekly: "ប្រចាំ​សប្តាហ៍",
+    monthly: "ប្រចាំ​ខែ",
+    generateReport: "បង្កើត​របាយការណ៍",
+    generating: "កំពុង​បង្កើត...",
+    summaryReport: "របាយការណ៍​សង្ខេប",
+    detailedReport: "របាយការណ៍​លម្អិត",
+    filterByStatus: "តម្រង​តាម​ស្ថានភាព",
+    allStatuses: "ស្ថានភាព​ទាំងអស់",
+    draft: "ព្រាង",
+    submitted: "បាន​ដាក់​ស្នើ",
+    inProgress: "កំពុង​ដំណើរការ",
+    completed: "បាន​បញ្ចប់",
+    rejected: "បាន​បដិសេធ",
+    workPlanStatusUpdated: "ស្ថានភាព​ផែនការងារ​បាន​ធ្វើ​បច្ចុប្បន្នភាព​ដោយ​ជោគ​ជ័យ",
+    noWorkPlans: "គ្មាន​ផែនការងារ​ដែល​ត្រូវ​តាមដាន",
+    
+    // Profile
+    updateProfile: "ធ្វើ​បច្ចុប្បន្នភាព​ប្រវត្តិ",
+    logout: "ចាក​ចេញ",
+    accessDenied: "បដិសេធ​ការ​ចូល​ប្រើ",
+    adminPrivileges: "អ្នក​មិន​មាន​សិទ្ធិ​អ្នក​គ្រប់​គ្រង​ដើម្បី​ចូល​ប្រើ​ផ្នែក​នេះ​ទេ។",
+    
+    // Common
+    ok: "យល់​ព្រម",
+    cancel: "បោះ​បង់",
+    error: "កំហុស",
+    success: "ជោគជ័យ",
+    validationError: "កំហុស​ក្នុង​ការ​ផ្ទៀងផ្ទាត់",
+    pleaseFillFields: "សូម​បំពេញ​វាល​ទាំងអស់",
+    endDateAfterStart: "កាលបរិច្ឆេទ​បញ្ចប់​ត្រូវ​នៅ​ក្រោយ​កាលបរិច្ឆេទ​ចាប់ផ្តើម",
+    enterReasonLeave: "សូម​បញ្ចូល​មូលហេតុ​នៃ​ការ​សុំ​ច្បាប់",
+    enterMissionTitle: "សូម​បញ្ចូល​ចំណង​ជើង​បេសកកម្ម",
+    enterMissionDescription: "សូម​បញ្ចូល​សេចក្តី​ពិពណ៌នា​បេសកកម្ម",
+    enterWorkPlanTitle: "សូម​បញ្ចូល​ចំណង​ជើង​ផែនការងារ",
+    enterWorkPlanDescription: "សូម​បញ្ចូល​សេចក្តី​ពិពណ៌នា​ផែនការងារ",
+    selectDueDate: "សូម​ជ្រើស​កាលបរិច្ឆេទ​កំណត់​សម្រាប់​ផែនការងារ",
+    locationError: "កំហុស​ទីតាំង",
+    unableGetLocation: "មិន​អាច​ទាញ​យក​ទីតាំង​បច្ចុប្បន្ន​របស់​អ្នក",
+    authenticationError: "កំហុស​ក្នុង​ការ​ផ្ទៀងផ្ទាត់",
+    userNotAuthenticated: "អ្នក​ប្រើ​មិន​បាន​ផ្ទៀងផ្ទាត់",
+    attendanceSubmitSuccess: "បាន​ចូល​ឬ​ចាក​ចេញ​ដោយ​ជោគ​ជ័យ!",
+    failedToLoad: "បរាជ័យ​ក្នុង​ការ​ផ្ទុក​ធាតុ​កំពុង​រង់ចា់",
+    reportGenerationFailed: "បរាជ័យ​ក្នុង​ការ​បង្កើត​របាយការណ៍",
+    loading: "កំពុង​ផ្ទុក...",
+    noItemsFound: "រក​មិន​ឃើញ​ធាតុ​ដែល​ត្រូវ​គ្នា​នឹង​លក្ខខណ្ឌ​ដែល​បាន​ជ្រើស",
+    profileUpdated: "បាន​ធ្វើ​បច្ចុប្បន្នភាព​ប្រវត្តិ​ដោយ​ជោគ​ជ័យ!",
+    optional: "ស្រេច​ចិត្ត"
+  }
+};
+
+// English translations
+const en = {
+  translation: {
+    // Authentication
+    login: "Login",
+    register: "Register",
+    email: "Email",
+    password: "Password",
+    firstName: "First Name",
+    lastName: "Last Name",
+    position: "Position",
+    department: "Department",
+    confirmPassword: "Confirm Password",
+    alreadyHaveAccount: "Already have an account?",
+    dontHaveAccount: "Don't have an account?",
+    enterCredentials: "Enter your credentials to access the TrackingApp",
+    createAccount: "Create an account for the TrackingApp",
+    welcome: "Welcome",
+    role: "Role",
+    
+    // Navigation
+    attendance: "Attendance",
+    leaveRequest: "Leave Request",
+    missionRequest: "Mission Request",
+    workPlan: "Work Plan",
+    profile: "Profile",
+    adminDashboard: "Admin Dashboard",
+    approvals: "Approvals",
+    reports: "Reports",
+    workPlanTracking: "Work Plan Tracking",
+    
+    // Attendance
+    checkInAM: "Check In AM",
+    checkOutAM: "Check Out AM",
+    checkInPM: "Check In PM",
+    checkOutPM: "Check Out PM",
+    currentLocation: "Current Location",
+    getTime: "Getting time...",
+    gettingLocation: "Getting location...",
+    noteGeofence: "Note: You must be within 50 meters of an office location to check in/out",
+    
+    // Leave Request
+    reasonForLeave: "Reason for Leave",
+    enterReason: "Enter reason for your leave",
+    startDate: "Start Date",
+    endDate: "End Date",
+    submitRequest: "Submit Request",
+    submitting: "Submitting...",
+    leaveSubmitSuccess: "Leave request submitted successfully. Awaiting approval.",
+    
+    // Mission Request
+    missionTitle: "Mission Title",
+    enterMissionTitle: "Enter mission title",
+    missionDescription: "Mission Description",
+    enterMissionDetails: "Enter mission details",
+    missionSubmitSuccess: "Mission request submitted successfully. Awaiting approval.",
+    
+    // Work Plan
+    workPlanTitle: "Work Plan Title",
+    enterWorkPlanTitle: "Enter work plan title",
+    workPlanDescription: "Work Plan Description",
+    enterWorkPlanDetails: "Enter work plan details",
+    dueDate: "Due Date",
+    status: "Status",
+    progress: "Progress (%)",
+    enterProgress: "Enter progress percentage",
+    achievement: "Achievement",
+    enterAchievement: "Enter achievements (optional)",
+    output: "Output",
+    enterOutput: "Enter outputs (optional)",
+    comments: "Comments",
+    enterComments: "Enter comments (optional)",
+    createWorkPlan: "Create Work Plan",
+    saving: "Saving...",
+    updateWorkPlan: "Update Work Plan",
+    
+    // Admin
+    totalUsers: "Total Users",
+    attendanceRecords: "Attendance Records",
+    leaveRequests: "Leave Requests",
+    missionRequests: "Mission Requests",
+    quickActions: "Quick Actions",
+    viewPendingApprovals: "View Pending Approvals",
+    generateReports: "Generate Reports",
+    manageUsers: "Manage Users",
+    pendingUsers: "Pending Users",
+    pendingLeaves: "Pending Leaves",
+    pendingMissions: "Pending Missions",
+    approve: "Approve",
+    reject: "Reject",
+    noPendingUsers: "No pending user registrations",
+    noPendingLeaves: "No pending leave requests",
+    noPendingMissions: "No pending mission requests",
+    daily: "Daily",
+    weekly: "Weekly",
+    monthly: "Monthly",
+    generateReport: "Generate Report",
+    generating: "Generating...",
+    summaryReport: "Summary Report",
+    detailedReport: "Detailed Report",
+    filterByStatus: "Filter by Status",
+    allStatuses: "All Statuses",
+    draft: "Draft",
+    submitted: "Submitted",
+    inProgress: "In Progress",
+    completed: "Completed",
+    rejected: "Rejected",
+    workPlanStatusUpdated: "Work plan status updated successfully",
+    noWorkPlans: "No work plans found to track",
+    
+    // Profile
+    updateProfile: "Update Profile",
+    logout: "Logout",
+    accessDenied: "Access Denied",
+    adminPrivileges: "You don't have admin privileges to access this area.",
+    
+    // Common
+    ok: "OK",
+    cancel: "Cancel",
+    error: "Error",
+    success: "Success",
+    validationError: "Validation Error",
+    pleaseFillFields: "Please fill in all required fields",
+    endDateAfterStart: "End date must be after start date",
+    enterReasonLeave: "Please enter a reason for your leave",
+    enterMissionTitle: "Please enter a title for your mission",
+    enterMissionDescription: "Please enter a description for your mission",
+    enterWorkPlanTitle: "Please enter a title for your work plan",
+    enterWorkPlanDescription: "Please enter a description for your work plan",
+    selectDueDate: "Please select a due date for your work plan",
+    locationError: "Location Error",
+    unableGetLocation: "Unable to get your current location",
+    authenticationError: "Authentication Error",
+    userNotAuthenticated: "User not authenticated",
+    attendanceSubmitSuccess: "Successfully checked in/out!",
+    failedToLoad: "Failed to load pending items",
+    reportGenerationFailed: "Failed to generate report",
+    loading: "Loading...",
+    noItemsFound: "No items found matching the selected criteria",
+    profileUpdated: "Profile updated successfully!",
+    optional: "Optional"
+  }
+};
+
+// Initialize i18next
+i18n
+  .use(initReactI18next)
+  .init({
+    resources: {
+      kh: {
+        translation: kh.translation
+      },
+      en: {
+        translation: en.translation
+      }
+    },
+    lng: "kh", // Default language is Khmer
+    fallbackLng: "en", // Fallback to English if translation is missing
+    interpolation: {
+      escapeValue: false // React already safes from XSS
+    }
+  });
+
+export default i18n;
