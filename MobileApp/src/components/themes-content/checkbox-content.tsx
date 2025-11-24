@@ -1,4 +1,4 @@
-import { Checkbox, FormField } from '../heroui-native';
+import { Checkbox, FormField } from '../../heroui-native';
 import React from 'react';
 import { View } from 'react-native';
 

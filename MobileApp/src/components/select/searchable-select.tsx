@@ -4,7 +4,7 @@ import {
   useSelect,
   useThemeColor,
   type SelectTriggerRef,
-} from '../heroui-native';
+} from '../../heroui-native';
 import React, { useRef, useState, type FC } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { KeyboardController } from 'react-native-keyboard-controller';

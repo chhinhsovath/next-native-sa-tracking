@@ -3,9 +3,12 @@ import { View, ScrollView, Alert } from 'react-native';
 import { Button, Card, cn, Badge } from '../heroui-native';
 import { useAppTheme } from '../contexts/app-theme-context';
 import { useAuth } from '../contexts/auth/auth-context';
+import { useI18n } from '../contexts/i18n-context';
 import { AppText } from '../components/app-text';
+import { API_BASE_URL } from '../config';
 
 export default function AdminApprovalsScreen() {
+  const { t } = useI18n();
   const { isDark } = useAppTheme();
   const { token, user } = useAuth();
   const [pendingUsers, setPendingUsers] = useState<any[]>([]);
@@ -27,7 +30,7 @@ export default function AdminApprovalsScreen() {
       setLoading(true);
 
       // Fetch pending user registrations
-      const usersResponse = await fetch('http://localhost:3000/api/admin/approvals?resource=user', {
+      const usersResponse = await fetch(`${API_BASE_URL}/api/admin/approvals?resource=user`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         }
@@ -39,7 +42,7 @@ export default function AdminApprovalsScreen() {
       }
 
       // Fetch pending leave requests
-      const leavesResponse = await fetch('http://localhost:3000/api/admin/approvals?resource=leave', {
+      const leavesResponse = await fetch(`${API_BASE_URL}/api/admin/approvals?resource=leave`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         }
@@ -51,7 +54,7 @@ export default function AdminApprovalsScreen() {
       }
 
       // Fetch pending mission requests
-      const missionsResponse = await fetch('http://localhost:3000/api/admin/approvals?resource=mission', {
+      const missionsResponse = await fetch(`${API_BASE_URL}/api/admin/approvals?resource=mission`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         }
@@ -63,7 +66,7 @@ export default function AdminApprovalsScreen() {
       }
     } catch (error) {
       console.error('Error fetching pending items:', error);
-      Alert.alert('Error', 'Failed to load pending items');
+      Alert.alert(t('error'), t('failedToLoad'));
     } finally {
       setLoading(false);
     }
@@ -71,7 +74,7 @@ export default function AdminApprovalsScreen() {
 
   const approveItem = async (id: string, resource: 'user' | 'leave' | 'mission') => {
     try {
-      const response = await fetch(`http://localhost:3000/api/admin/approvals?resource=${resource}`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/approvals?resource=${resource}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -84,21 +87,21 @@ export default function AdminApprovalsScreen() {
       });
 
       if (response.ok) {
-        Alert.alert('Success', `${resource.charAt(0).toUpperCase() + resource.slice(1)} approved successfully`);
+        Alert.alert(t('success'), t('itemApprovedSuccess', { resource }));
         fetchPendingItems(); // Refresh the list
       } else {
         const data = await response.json();
-        throw new Error(data.message || 'Approval failed');
+        throw new Error(data.message || t('approvalFailed'));
       }
     } catch (error: any) {
       console.error('Approval error:', error);
-      Alert.alert('Error', error.message || 'Failed to approve item');
+      Alert.alert(t('error'), error.message || t('failedToApproveItem'));
     }
   };
 
   const rejectItem = async (id: string, resource: 'user' | 'leave' | 'mission') => {
     try {
-      const response = await fetch(`http://localhost:3000/api/admin/approvals?resource=${resource}`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/approvals?resource=${resource}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -111,15 +114,15 @@ export default function AdminApprovalsScreen() {
       });
 
       if (response.ok) {
-        Alert.alert('Success', `${resource.charAt(0).toUpperCase() + resource.slice(1)} rejected successfully`);
+        Alert.alert(t('success'), t('itemRejectedSuccess', { resource }));
         fetchPendingItems(); // Refresh the list
       } else {
         const data = await response.json();
-        throw new Error(data.message || 'Rejection failed');
+        throw new Error(data.message || t('rejectionFailed'));
       }
     } catch (error: any) {
       console.error('Rejection error:', error);
-      Alert.alert('Error', error.message || 'Failed to reject item');
+      Alert.alert(t('error'), error.message || t('failedToRejectItem'));
     }
   };
 
@@ -128,11 +131,11 @@ export default function AdminApprovalsScreen() {
       <View className={cn('flex-1 justify-center items-center p-4', isDark ? 'bg-background' : 'bg-muted/30')}>
         <Card className="w-full max-w-md p-6">
           <Card.Header>
-            <Card.Title className="text-xl text-center">Access Denied</Card.Title>
+            <Card.Title className="text-xl text-center">{t('accessDenied')}</Card.Title>
           </Card.Header>
           <Card.Body>
             <AppText className="text-center text-muted-foreground">
-              You don't have admin privileges to access this area.
+              {t('adminPrivileges')}
             </AppText>
           </Card.Body>
         </Card>
@@ -147,10 +150,10 @@ export default function AdminApprovalsScreen() {
         <Card.Description>{item.email}</Card.Description>
       </Card.Header>
       <Card.Body>
-        <AppText className="text-muted-foreground">Position: {item.position || 'N/A'}</AppText>
-        <AppText className="text-muted-foreground">Department: {item.department || 'N/A'}</AppText>
+        <AppText className="text-muted-foreground">{t('position')}: {item.position || t('notAvailable')}</AppText>
+        <AppText className="text-muted-foreground">{t('department')}: {item.department || t('notAvailable')}</AppText>
         <AppText className="text-muted-foreground mt-1">
-          Registered: {new Date(item.registeredAt).toLocaleDateString()}
+          {t('registered')}: {new Date(item.registeredAt).toLocaleDateString()}
         </AppText>
       </Card.Body>
       <Card.Footer className="flex-row justify-between">
@@ -159,14 +162,14 @@ export default function AdminApprovalsScreen() {
           size="sm"
           onPress={() => rejectItem(item.id, 'user')}
         >
-          <AppText className="text-background text-sm">Reject</AppText>
+          <AppText className="text-background text-sm">{t('reject')}</AppText>
         </Button>
         <Button 
           variant="default" 
           size="sm"
           onPress={() => approveItem(item.id, 'user')}
         >
-          <AppText className="text-foreground text-sm">Approve</AppText>
+          <AppText className="text-foreground text-sm">{t('approve')}</AppText>
         </Button>
       </Card.Footer>
     </Card>
@@ -179,7 +182,7 @@ export default function AdminApprovalsScreen() {
         <Card.Description>{item.user.email}</Card.Description>
       </Card.Header>
       <Card.Body>
-        <AppText className="text-muted-foreground">Reason: {item.reason}</AppText>
+        <AppText className="text-muted-foreground">{t('reasonForLeave')}: {item.reason}</AppText>
         <View className="flex-row justify-between mt-2">
           <AppText className="text-muted-foreground">
             {new Date(item.startDate).toLocaleDateString()} - {new Date(item.endDate).toLocaleDateString()}
@@ -193,14 +196,14 @@ export default function AdminApprovalsScreen() {
           size="sm"
           onPress={() => rejectItem(item.id, 'leave')}
         >
-          <AppText className="text-background text-sm">Reject</AppText>
+          <AppText className="text-background text-sm">{t('reject')}</AppText>
         </Button>
         <Button 
           variant="default" 
           size="sm"
           onPress={() => approveItem(item.id, 'leave')}
         >
-          <AppText className="text-foreground text-sm">Approve</AppText>
+          <AppText className="text-foreground text-sm">{t('approve')}</AppText>
         </Button>
       </Card.Footer>
     </Card>
@@ -210,7 +213,7 @@ export default function AdminApprovalsScreen() {
     <Card key={item.id} className="mb-3">
       <Card.Header>
         <Card.Title>{item.title}</Card.Title>
-        <Card.Description>By {item.user.firstName} {item.user.lastName}</Card.Description>
+        <Card.Description>{t('by')} {item.user.firstName} {item.user.lastName}</Card.Description>
       </Card.Header>
       <Card.Body>
         <AppText className="text-muted-foreground">{item.description}</AppText>
@@ -227,14 +230,14 @@ export default function AdminApprovalsScreen() {
           size="sm"
           onPress={() => rejectItem(item.id, 'mission')}
         >
-          <AppText className="text-background text-sm">Reject</AppText>
+          <AppText className="text-background text-sm">{t('reject')}</AppText>
         </Button>
         <Button 
           variant="default" 
           size="sm"
           onPress={() => approveItem(item.id, 'mission')}
         >
-          <AppText className="text-foreground text-sm">Approve</AppText>
+          <AppText className="text-foreground text-sm">{t('approve')}</AppText>
         </Button>
       </Card.Footer>
     </Card>
@@ -244,9 +247,9 @@ export default function AdminApprovalsScreen() {
     <View className={cn('flex-1', isDark ? 'bg-background' : 'bg-muted/30')}>
       <Card className="mb-0">
         <Card.Header>
-          <Card.Title className="text-2xl text-center">Admin Approvals</Card.Title>
+          <Card.Title className="text-2xl text-center">{t('approvals')}</Card.Title>
           <Card.Description className="text-center">
-            Review and approve pending requests
+            {t('reviewAndApprove')}
           </Card.Description>
         </Card.Header>
       </Card>
@@ -258,7 +261,7 @@ export default function AdminApprovalsScreen() {
           onPress={() => setActiveTab('users')}
         >
           <AppText className={activeTab === 'users' ? "text-foreground" : "text-muted-foreground"}>
-            Users ({pendingUsers.length})
+            {t('users')} ({pendingUsers.length})
           </AppText>
         </Button>
         <Button 
@@ -267,7 +270,7 @@ export default function AdminApprovalsScreen() {
           onPress={() => setActiveTab('leaves')}
         >
           <AppText className={activeTab === 'leaves' ? "text-foreground" : "text-muted-foreground"}>
-            Leaves ({pendingLeaves.length})
+            {t('leaves')} ({pendingLeaves.length})
           </AppText>
         </Button>
         <Button 
@@ -276,14 +279,14 @@ export default function AdminApprovalsScreen() {
           onPress={() => setActiveTab('missions')}
         >
           <AppText className={activeTab === 'missions' ? "text-foreground" : "text-muted-foreground"}>
-            Missions ({pendingMissions.length})
+            {t('missions')} ({pendingMissions.length})
           </AppText>
         </Button>
       </View>
       
       <ScrollView className="flex-1 p-4">
         {loading ? (
-          <AppText className="text-center">Loading pending items...</AppText>
+          <AppText className="text-center">{t('loading')}...</AppText>
         ) : activeTab === 'users' ? (
           pendingUsers.length > 0 ? (
             pendingUsers.map(renderUserItem)
@@ -291,7 +294,7 @@ export default function AdminApprovalsScreen() {
             <Card>
               <Card.Body>
                 <AppText className="text-center text-muted-foreground">
-                  No pending user registrations
+                  {t('noPendingUsers')}
                 </AppText>
               </Card.Body>
             </Card>
@@ -303,7 +306,7 @@ export default function AdminApprovalsScreen() {
             <Card>
               <Card.Body>
                 <AppText className="text-center text-muted-foreground">
-                  No pending leave requests
+                  {t('noPendingLeaves')}
                 </AppText>
               </Card.Body>
             </Card>
@@ -315,7 +318,7 @@ export default function AdminApprovalsScreen() {
             <Card>
               <Card.Body>
                 <AppText className="text-center text-muted-foreground">
-                  No pending mission requests
+                  {t('noPendingMissions')}
                 </AppText>
               </Card.Body>
             </Card>

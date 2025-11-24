@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Button, Card, PressableFeedback } from '../heroui-native';
+import { Button, Card, PressableFeedback } from '../../heroui-native';
 import { StyleSheet, View } from 'react-native';
 import { AppText } from '../../../components/app-text';
 import type { UsageVariant } from '../../../components/component-presentation/types';

@@ -2,7 +2,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Avatar, cn } from '../heroui-native';
+import { Avatar, cn } from '../../heroui-native';
 import { StyleSheet, Text, View } from 'react-native';
 import { withUniwind } from 'uniwind';
 import type { UsageVariant } from '../../../components/component-presentation/types';

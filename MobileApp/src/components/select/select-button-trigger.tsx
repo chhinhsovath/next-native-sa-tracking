@@ -1,5 +1,5 @@
 import Feather from '@expo/vector-icons/Feather';
-import { Divider, Select, useSelect } from '../heroui-native';
+import { Divider, Select, useSelect } from '../../heroui-native';
 import React, { useState, type FC } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, {

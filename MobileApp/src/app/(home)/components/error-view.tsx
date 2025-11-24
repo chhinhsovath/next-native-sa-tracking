@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Button, ErrorView, TextField } from '../heroui-native';
+import { Button, ErrorView, TextField } from '../../heroui-native';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { FadeInDown } from 'react-native-reanimated';

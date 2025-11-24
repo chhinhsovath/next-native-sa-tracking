@@ -1,5 +1,5 @@
 import Feather from '@expo/vector-icons/Feather';
-import { Avatar } from '../heroui-native';
+import { Avatar } from '../../heroui-native';
 import { type FC } from 'react';
 import { Pressable, View } from 'react-native';
 import { withUniwind } from 'uniwind';

@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Button, Card, type CardRootProps } from '../heroui-native';
+import { Button, Card, type CardRootProps } from '../../heroui-native';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { withUniwind } from 'uniwind';
 import { AppText } from '../../../components/app-text';

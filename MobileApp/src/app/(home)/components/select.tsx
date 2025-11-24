@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
-import { Button, Divider, Select, useThemeColor } from '../heroui-native';
+import { Button, Divider, Select, useThemeColor } from '../../heroui-native';
 import React, { useState } from 'react';
 import { Platform, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';

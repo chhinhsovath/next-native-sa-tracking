@@ -1,6 +1,6 @@
 import { isLiquidGlassAvailable } from 'expo-glass-effect';
 import { Stack } from 'expo-router';
-import { useThemeColor } from '../heroui-native';
+import { useThemeColor } from '../../heroui-native';
 import { useCallback } from 'react';
 import { Image, Platform, StyleSheet, View } from 'react-native';
 import LogoDark from '../../../assets/logo-dark.png';

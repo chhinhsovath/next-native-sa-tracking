@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { Button, cn, ScrollShadow, Select, useThemeColor } from '../heroui-native';
+import { Button, cn, ScrollShadow, Select, useThemeColor } from '../../heroui-native';
 import { useState } from 'react';
 import { TextInput, useWindowDimensions, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';

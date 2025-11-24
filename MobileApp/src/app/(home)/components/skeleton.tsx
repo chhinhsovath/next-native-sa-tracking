@@ -8,7 +8,7 @@ import {
   SkeletonGroup,
   Surface,
   type SkeletonAnimation,
-} from '../heroui-native';
+} from '../../heroui-native';
 import { useState } from 'react';
 import { Image, Text, View } from 'react-native';
 import Animated, { FadeInLeft, FadeOutRight } from 'react-native-reanimated';

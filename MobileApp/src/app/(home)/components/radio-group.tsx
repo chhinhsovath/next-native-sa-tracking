@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { cn, Divider, RadioGroup, Surface } from '../heroui-native';
+import { cn, Divider, RadioGroup, Surface } from '../../heroui-native';
 import React from 'react';
 import { View } from 'react-native';
 import Animated, {

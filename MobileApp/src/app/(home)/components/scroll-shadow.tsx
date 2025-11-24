@@ -1,6 +1,6 @@
 import { FlashList } from '@shopify/flash-list';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ScrollShadow, Surface } from '../heroui-native';
+import { ScrollShadow, Surface } from '../../heroui-native';
 import {
   ScrollView,
   StyleSheet,

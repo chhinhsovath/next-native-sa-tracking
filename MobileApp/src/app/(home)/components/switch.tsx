@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import { Divider, FormField, Surface, Switch } from '../heroui-native';
+import { Divider, FormField, Surface, Switch } from '../../heroui-native';
 import React from 'react';
 import { View } from 'react-native';
 import Animated, {

@@ -1,4 +1,4 @@
-import { Divider, FormField, Surface, Switch } from '../heroui-native';
+import { Divider, FormField, Surface, Switch } from '../../heroui-native';
 import React from 'react';
 
 interface SwitchFieldProps {

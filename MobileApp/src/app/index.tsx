@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { View } from 'react-native';
-import { Button, Card, cn } from '../heroui-native';
+import { Button, Card, cn } from '../../heroui-native';
 import { useAppTheme } from '../contexts/app-theme-context';
 import { useAuth } from '../contexts/auth/auth-context';
 import { useI18n } from '../contexts/i18n-context';

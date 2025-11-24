@@ -7,7 +7,7 @@ import {
   RadioGroup,
   Tabs,
   TextField,
-} from '../heroui-native';
+} from '../../heroui-native';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, {

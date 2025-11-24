@@ -3,9 +3,12 @@ import { View, ScrollView, Alert } from 'react-native';
 import { Button, Card, cn, DatePicker } from '../heroui-native';
 import { useAppTheme } from '../contexts/app-theme-context';
 import { useAuth } from '../contexts/auth/auth-context';
+import { useI18n } from '../contexts/i18n-context';
 import { AppText } from '../components/app-text';
+import { API_BASE_URL } from '../config';
 
 export default function AdminReportsScreen() {
+  const { t } = useI18n();
   const { isDark } = useAppTheme();
   const { token, user } = useAuth();
   const [reportType, setReportType] = useState<'daily' | 'weekly' | 'monthly' | 'custom'>('daily');
@@ -24,12 +27,12 @@ export default function AdminReportsScreen() {
 
   const generateReport = async () => {
     if (!startDate || !endDate) {
-      Alert.alert('Validation Error', 'Please select both start and end dates');
+      Alert.alert(t('validationError'), t('selectStartAndEndDates'));
       return;
     }
 
     if (startDate > endDate) {
-      Alert.alert('Validation Error', 'End date must be after start date');
+      Alert.alert(t('validationError'), t('endDateAfterStart'));
       return;
     }
 
@@ -37,7 +40,7 @@ export default function AdminReportsScreen() {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/admin/reports?reportType=${reportType}&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`, 
+        `${API_BASE_URL}/api/admin/reports?reportType=${reportType}&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`, 
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -50,11 +53,11 @@ export default function AdminReportsScreen() {
         setReports(data);
       } else {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Report generation failed');
+        throw new Error(errorData.message || t('reportGenerationFailed'));
       }
     } catch (error: any) {
       console.error('Report generation error:', error);
-      Alert.alert('Error', error.message || 'Failed to generate report');
+      Alert.alert(t('error'), error.message || t('reportGenerationFailed'));
     } finally {
       setLoading(false);
     }
@@ -65,11 +68,11 @@ export default function AdminReportsScreen() {
       <View className={cn('flex-1 justify-center items-center p-4', isDark ? 'bg-background' : 'bg-muted/30')}>
         <Card className="w-full max-w-md p-6">
           <Card.Header>
-            <Card.Title className="text-xl text-center">Access Denied</Card.Title>
+            <Card.Title className="text-xl text-center">{t('accessDenied')}</Card.Title>
           </Card.Header>
           <Card.Body>
             <AppText className="text-center text-muted-foreground">
-              You don't have admin privileges to access this area.
+              {t('adminPrivileges')}
             </AppText>
           </Card.Body>
         </Card>
@@ -95,9 +98,9 @@ export default function AdminReportsScreen() {
     <ScrollView className={cn('flex-1 p-4', isDark ? 'bg-background' : 'bg-muted/30')}>
       <Card className="mb-4">
         <Card.Header>
-          <Card.Title className="text-2xl text-center">Admin Reports</Card.Title>
+          <Card.Title className="text-2xl text-center">{t('reports')}</Card.Title>
           <Card.Description className="text-center">
-            Generate and view reports for staff activities
+            {t('generateAndViweReports')}
           </Card.Description>
         </Card.Header>
         
@@ -109,7 +112,7 @@ export default function AdminReportsScreen() {
               onPress={() => setReportType('daily')}
             >
               <AppText className={reportType === 'daily' ? "text-foreground" : "text-muted-foreground"}>
-                Daily
+                {t('daily')}
               </AppText>
             </Button>
             <Button 
@@ -118,7 +121,7 @@ export default function AdminReportsScreen() {
               onPress={() => setReportType('weekly')}
             >
               <AppText className={reportType === 'weekly' ? "text-foreground" : "text-muted-foreground"}>
-                Weekly
+                {t('weekly')}
               </AppText>
             </Button>
             <Button 
@@ -127,29 +130,29 @@ export default function AdminReportsScreen() {
               onPress={() => setReportType('monthly')}
             >
               <AppText className={reportType === 'monthly' ? "text-foreground" : "text-muted-foreground"}>
-                Monthly
+                {t('monthly')}
               </AppText>
             </Button>
           </View>
           
           <View className="flex-row gap-2">
             <View className="flex-1">
-              <AppText className="text-foreground mb-1">Start Date</AppText>
+              <AppText className="text-foreground mb-1">{t('startDate')}</AppText>
               <DatePicker
                 date={startDate}
                 onDateChange={setStartDate}
                 maximumDate={endDate || undefined}
-                placeholder="Select start date"
+                placeholder={t('selectStartDate')}
               />
             </View>
             
             <View className="flex-1">
-              <AppText className="text-foreground mb-1">End Date</AppText>
+              <AppText className="text-foreground mb-1">{t('endDate')}</AppText>
               <DatePicker
                 date={endDate}
                 onDateChange={setEndDate}
                 minimumDate={startDate || undefined}
-                placeholder="Select end date"
+                placeholder={t('selectEndDate')}
               />
             </View>
           </View>
@@ -160,7 +163,7 @@ export default function AdminReportsScreen() {
             disabled={loading}
           >
             <AppText className="text-foreground text-base font-medium">
-              {loading ? 'Generating...' : 'Generate Report'}
+              {loading ? t('generating') : t('generateReport')}
             </AppText>
           </Button>
         </Card.Body>
@@ -170,29 +173,29 @@ export default function AdminReportsScreen() {
         <View>
           <Card className="mb-4">
             <Card.Header>
-              <Card.Title>Summary Report</Card.Title>
+              <Card.Title>{t('summaryReport')}</Card.Title>
             </Card.Header>
             <Card.Body>
-              {reportType === 'daily' && renderReportItem('Attendance Records', reports.attendance || 0, '⏱️')}
-              {reportType === 'daily' && renderReportItem('Leave Requests', reports.leaveRequests || 0, '🌴')}
-              {reportType === 'daily' && renderReportItem('Mission Requests', reports.missionRequests || 0, '🎯')}
-              {reportType === 'daily' && renderReportItem('Work Plans', reports.workPlans || 0, '📋')}
+              {reportType === 'daily' && renderReportItem(t('attendanceRecords'), reports.attendance || 0, '⏱️')}
+              {reportType === 'daily' && renderReportItem(t('leaveRequests'), reports.leaveRequests || 0, '🌴')}
+              {reportType === 'daily' && renderReportItem(t('missionRequests'), reports.missionRequests || 0, '🎯')}
+              {reportType === 'daily' && renderReportItem(t('workPlan'), reports.workPlans || 0, '📋')}
             </Card.Body>
           </Card>
           
           {reportType !== 'daily' && reports && Array.isArray(reports) && reports.length > 0 && (
             <Card>
               <Card.Header>
-                <Card.Title>Detailed Report</Card.Title>
+                <Card.Title>{t('detailedReport')}</Card.Title>
               </Card.Header>
               <Card.Body>
                 {reports.map((item: any, index: number) => (
                   <View key={index} className="border-b border-muted py-2">
                     <AppText className="font-medium">
-                      {item.user ? `${item.user.firstName} ${item.user.lastName}` : 'N/A'}
+                      {item.user ? `${item.user.firstName} ${item.user.lastName}` : t('notAvailable')}
                     </AppText>
                     <AppText className="text-sm text-muted-foreground">
-                      {item.title || item.reason || 'No description'}
+                      {item.title || item.reason || t('noDescription')}
                     </AppText>
                     <AppText className="text-xs text-muted-foreground">
                       {new Date(item.timestamp || item.createdAt).toLocaleString()}

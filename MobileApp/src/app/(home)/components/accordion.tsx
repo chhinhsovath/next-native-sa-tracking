@@ -1,5 +1,5 @@
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { Accordion, useAccordionItem } from '../heroui-native';
+import { Accordion, useAccordionItem } from '../../heroui-native';
 import { View } from 'react-native';
 import Animated, {
   Easing,

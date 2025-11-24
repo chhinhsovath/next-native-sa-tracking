@@ -1,4 +1,4 @@
-import { Checkbox, Divider, FormField, Surface, Switch } from '../heroui-native';
+import { Checkbox, Divider, FormField, Surface, Switch } from '../../heroui-native';
 import React from 'react';
 import { View } from 'react-native';
 import Animated, { LinearTransition } from 'react-native-reanimated';

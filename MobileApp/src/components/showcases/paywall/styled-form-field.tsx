@@ -1,4 +1,4 @@
-import { FormField, Switch, useThemeColor } from '../heroui-native';
+import { FormField, Switch, useThemeColor } from '../../heroui-native';
 import type { FC } from 'react';
 import { BlurContainer } from './blur-container';
 

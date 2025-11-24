@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Button, Spinner } from '../heroui-native';
+import { Button, Spinner } from '../../heroui-native';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { withUniwind } from 'uniwind';

@@ -3,9 +3,12 @@ import { View, Alert } from 'react-native';
 import { Button, Card, Input, DatePicker, cn } from '../heroui-native';
 import { useAppTheme } from '../contexts/app-theme-context';
 import { useAuth } from '../contexts/auth/auth-context';
+import { useI18n } from '../contexts/i18n-context';
 import { AppText } from '../components/app-text';
+import { API_BASE_URL } from '../config';
 
 export default function MissionRequestScreen() {
+  const { t } = useI18n();
   const { isDark } = useAppTheme();
   const { token } = useAuth();
   const [title, setTitle] = useState('');
@@ -16,29 +19,29 @@ export default function MissionRequestScreen() {
 
   const submitMissionRequest = async () => {
     if (!title.trim()) {
-      Alert.alert('Validation Error', 'Please enter a title for your mission');
+      Alert.alert(t('validationError'), t('enterMissionTitle'));
       return;
     }
 
     if (!description.trim()) {
-      Alert.alert('Validation Error', 'Please enter a description for your mission');
+      Alert.alert(t('validationError'), t('enterMissionDescription'));
       return;
     }
 
     if (!startDate || !endDate) {
-      Alert.alert('Validation Error', 'Please select both start and end dates');
+      Alert.alert(t('validationError'), t('selectStartAndEndDates'));
       return;
     }
 
     if (startDate > endDate) {
-      Alert.alert('Validation Error', 'End date must be after start date');
+      Alert.alert(t('validationError'), t('endDateAfterStart'));
       return;
     }
 
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3000/api/mission/request', {
+      const response = await fetch(`${API_BASE_URL}/api/mission/request`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,11 +59,11 @@ export default function MissionRequestScreen() {
 
       if (response.ok) {
         Alert.alert(
-          'Success', 
-          'Mission request submitted successfully. Awaiting approval.',
+          t('success'), 
+          t('missionSubmitSuccess'),
           [
             {
-              text: 'OK',
+              text: t('ok'),
               onPress: () => {
                 // Reset form
                 setTitle('');
@@ -72,11 +75,11 @@ export default function MissionRequestScreen() {
           ]
         );
       } else {
-        throw new Error(data.message || 'Mission request submission failed');
+        throw new Error(data.message || t('missionRequestSubmissionFailed'));
       }
     } catch (error: any) {
       console.error('Mission request error:', error);
-      Alert.alert('Error', error.message || 'An error occurred while submitting your mission request');
+      Alert.alert(t('error'), error.message || t('errorSubmittingMissionRequest'));
     } finally {
       setLoading(false);
     }
@@ -86,23 +89,23 @@ export default function MissionRequestScreen() {
     <View className={cn('flex-1 justify-start p-4', isDark ? 'bg-background' : 'bg-muted/30')}>
       <Card className="w-full">
         <Card.Header>
-          <Card.Title className="text-2xl text-center">Mission Request</Card.Title>
+          <Card.Title className="text-2xl text-center">{t('missionRequest')}</Card.Title>
           <Card.Description className="text-center mt-2">
-            Submit a request for a mission or assignment
+            {t('submitRequestForMission')}
           </Card.Description>
         </Card.Header>
         
         <Card.Body className="gap-4">
           <Input
-            label="Title"
-            placeholder="Enter mission title"
+            label={t('missionTitle')}
+            placeholder={t('enterMissionTitle')}
             value={title}
             onChangeText={setTitle}
           />
           
           <Input
-            label="Description"
-            placeholder="Enter mission details"
+            label={t('missionDescription')}
+            placeholder={t('enterMissionDetails')}
             value={description}
             onChangeText={setDescription}
             multiline
@@ -112,22 +115,22 @@ export default function MissionRequestScreen() {
           
           <View className="flex-row gap-2">
             <View className="flex-1">
-              <AppText className="text-foreground mb-1">Start Date</AppText>
+              <AppText className="text-foreground mb-1">{t('startDate')}</AppText>
               <DatePicker
                 date={startDate}
                 onDateChange={setStartDate}
                 maximumDate={endDate || undefined}
-                placeholder="Select start date"
+                placeholder={t('selectStartDate')}
               />
             </View>
             
             <View className="flex-1">
-              <AppText className="text-foreground mb-1">End Date</AppText>
+              <AppText className="text-foreground mb-1">{t('endDate')}</AppText>
               <DatePicker
                 date={endDate}
                 onDateChange={setEndDate}
                 minimumDate={startDate || undefined}
-                placeholder="Select end date"
+                placeholder={t('selectEndDate')}
               />
             </View>
           </View>
@@ -136,7 +139,7 @@ export default function MissionRequestScreen() {
         <Card.Footer className="gap-3">
           <Button onPress={submitMissionRequest} loading={loading}>
             <AppText className="text-foreground text-base font-medium">
-              {loading ? 'Submitting...' : 'Submit Request'}
+              {loading ? t('submitting') : t('submitRequest')}
             </AppText>
           </Button>
         </Card.Footer>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, cn } from '../heroui-native';
+import { Button, cn } from '../../heroui-native';
 import { useI18n } from '../contexts/i18n-context';
 import { AppText } from '../components/app-text';
 

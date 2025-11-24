@@ -1,4 +1,4 @@
-import { useDialogAnimation } from '../heroui-native';
+import { useDialogAnimation } from '../../heroui-native';
 import { StyleSheet } from 'react-native';
 import { interpolate, useDerivedValue } from 'react-native-reanimated';
 import { useAppTheme } from '../contexts/app-theme-context';

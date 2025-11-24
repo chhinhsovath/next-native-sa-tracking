@@ -1,4 +1,4 @@
-import { Card, Chip, cn, DropShadowView } from '../heroui-native';
+import { Card, Chip, cn, DropShadowView } from '../../heroui-native';
 import { type FC } from 'react';
 import { Image, useWindowDimensions, View } from 'react-native';
 import Animated, {

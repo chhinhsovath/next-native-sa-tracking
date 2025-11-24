@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import { Image } from 'expo-image';
-import { Card, PressableFeedback } from '../heroui-native';
+import { Card, PressableFeedback } from '../../heroui-native';
 import { View } from 'react-native';
 import { AppText } from '../app-text';
 

@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import { useHeaderHeight } from '@react-navigation/elements';
-import { useThemeColor } from '../heroui-native';
+import { useThemeColor } from '../../heroui-native';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';

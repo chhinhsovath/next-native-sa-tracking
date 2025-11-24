@@ -5,7 +5,7 @@ import {
   Select,
   useSelect,
   useThemeColor,
-} from '../heroui-native';
+} from '../../heroui-native';
 import { type FC, memo, useEffect, useMemo, useRef } from 'react';
 import { FlatList } from 'react-native';
 

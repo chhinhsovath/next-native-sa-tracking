@@ -1,4 +1,4 @@
-import { cn } from '../heroui-native';
+import { cn } from '../../heroui-native';
 import React from 'react';
 import { Text as RNText, type TextProps as RNTextProps } from 'react-native';
 

@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Button, cn, Spinner, useThemeColor } from '../heroui-native';
+import { Button, cn, Spinner, useThemeColor } from '../../heroui-native';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { FadeIn, LinearTransition } from 'react-native-reanimated';

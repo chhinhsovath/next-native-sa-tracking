@@ -1,7 +1,7 @@
 import Feather from '@expo/vector-icons/Feather';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Button, cn, colorKit, Select, useThemeColor } from '../heroui-native';
+import { Button, cn, colorKit, Select, useThemeColor } from '../../heroui-native';
 import {
   Platform,
   Pressable,

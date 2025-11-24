@@ -31,7 +31,7 @@ export default function LoginScreen() {
       if (success) {
         router.replace('/'); // Redirect to home after login
       } else {
-        Alert.alert(t('error'), t('email') + ' ' + t('password') + ' ' + 'មិន​ត្រឹម​ត្រូវ');
+        Alert.alert(t('error'), t('incorrectCredentials'));
       }
     } catch (error) {
       console.error('Login error:', error);

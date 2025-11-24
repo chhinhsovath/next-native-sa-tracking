@@ -1,4 +1,4 @@
-import { Divider, Surface } from '../heroui-native';
+import { Divider, Surface } from '../../heroui-native';
 import { View } from 'react-native';
 import { AppText } from '../../../components/app-text';
 import type { UsageVariant } from '../../../components/component-presentation/types';

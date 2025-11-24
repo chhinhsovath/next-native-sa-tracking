@@ -1,6 +1,6 @@
 import { isLiquidGlassAvailable } from 'expo-glass-effect';
 import { Stack } from 'expo-router';
-import { useThemeColor } from '../heroui-native';
+import { useThemeColor } from '../../heroui-native';
 
 export default function Layout() {
   const themeColorBackground = useThemeColor('background');

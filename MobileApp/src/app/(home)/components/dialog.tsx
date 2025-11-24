@@ -9,7 +9,7 @@ import {
   TextField,
   useDialogAnimation,
   useThemeColor,
-} from '../heroui-native';
+} from '../../heroui-native';
 import { useState, type FC, type PropsWithChildren } from 'react';
 import { Platform, Text, useWindowDimensions, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';

@@ -1,4 +1,4 @@
-import type { PopoverProgressAnimationConfigs } from '../heroui-native';
+import type { PopoverProgressAnimationConfigs } from '../../heroui-native';
 
 export const progressAnimationConfigs: PopoverProgressAnimationConfigs = {
   onClose: {

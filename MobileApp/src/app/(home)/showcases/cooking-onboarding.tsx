@@ -7,7 +7,7 @@ import {
   Divider,
   useThemeColor,
   type PopoverTriggerRef,
-} from '../heroui-native';
+} from '../../heroui-native';
 import {
   useCallback,
   useEffect,

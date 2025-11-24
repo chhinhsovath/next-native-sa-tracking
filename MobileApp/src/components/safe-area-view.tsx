@@ -1,5 +1,5 @@
 import { useHeaderHeight } from '@react-navigation/elements';
-import { cn } from '../heroui-native';
+import { cn } from '../../heroui-native';
 import { type FC, type PropsWithChildren } from 'react';
 import { Platform, View, type ScrollViewProps } from 'react-native';
 import Animated, { type AnimatedProps } from 'react-native-reanimated';

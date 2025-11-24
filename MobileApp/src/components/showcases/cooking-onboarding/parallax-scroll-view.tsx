@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { colorKit, useThemeColor } from '../heroui-native';
+import { colorKit, useThemeColor } from '../../heroui-native';
 import type { PropsWithChildren, ReactElement } from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import Animated, {

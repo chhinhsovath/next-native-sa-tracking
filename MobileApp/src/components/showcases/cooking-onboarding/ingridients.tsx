@@ -1,6 +1,6 @@
 import Entypo from '@expo/vector-icons/Entypo';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Button, Divider } from '../heroui-native';
+import { Button, Divider } from '../../heroui-native';
 import { type FC } from 'react';
 import { View } from 'react-native';
 import { withUniwind } from 'uniwind';

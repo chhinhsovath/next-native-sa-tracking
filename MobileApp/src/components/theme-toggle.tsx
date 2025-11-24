@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { isLiquidGlassAvailable } from 'expo-glass-effect';
 import * as Haptics from 'expo-haptics';
-import { cn } from '../heroui-native';
+import { cn } from '../../heroui-native';
 import { type FC } from 'react';
 import { Platform, Pressable } from 'react-native';
 import Animated, { FadeOut, ZoomIn } from 'react-native-reanimated';

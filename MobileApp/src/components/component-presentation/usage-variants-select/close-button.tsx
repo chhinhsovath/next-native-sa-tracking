@@ -1,5 +1,5 @@
 import * as Haptics from 'expo-haptics';
-import { Button, useSelect, useThemeColor } from '../heroui-native';
+import { Button, useSelect, useThemeColor } from '../../heroui-native';
 import { Platform } from 'react-native';
 import Animated, {
   Extrapolation,

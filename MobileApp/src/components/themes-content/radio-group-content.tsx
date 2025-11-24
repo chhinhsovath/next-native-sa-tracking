@@ -1,4 +1,4 @@
-import { Divider, RadioGroup, Surface } from '../heroui-native';
+import { Divider, RadioGroup, Surface } from '../../heroui-native';
 import React from 'react';
 import { View } from 'react-native';
 

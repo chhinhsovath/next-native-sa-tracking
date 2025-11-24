@@ -4,7 +4,7 @@ import {
   Popover,
   useThemeColor,
   type PopoverTriggerRef,
-} from '../heroui-native';
+} from '../../heroui-native';
 import { type FC, type RefObject } from 'react';
 import { withUniwind } from 'uniwind';
 import { simulatePress } from '../../../helpers/utils/simulate-press';

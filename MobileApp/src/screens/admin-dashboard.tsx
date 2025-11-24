@@ -3,9 +3,12 @@ import { View, ScrollView } from 'react-native';
 import { Button, Card, cn, Progress } from '../heroui-native';
 import { useAppTheme } from '../contexts/app-theme-context';
 import { useAuth } from '../contexts/auth/auth-context';
+import { useI18n } from '../contexts/i18n-context';
 import { AppText } from '../components/app-text';
+import { API_BASE_URL } from '../config';
 
 export default function AdminDashboardScreen() {
+  const { t } = useI18n();
   const { isDark } = useAppTheme();
   const { token, user } = useAuth();
   const [reports, setReports] = useState<any>(null);
@@ -23,7 +26,7 @@ export default function AdminDashboardScreen() {
   const fetchDashboardData = async () => {
     try {
       // Fetch summary reports
-      const response = await fetch('http://localhost:3000/api/admin/reports', {
+      const response = await fetch(`${API_BASE_URL}/api/admin/reports`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         }
@@ -45,11 +48,11 @@ export default function AdminDashboardScreen() {
       <View className={cn('flex-1 justify-center items-center p-4', isDark ? 'bg-background' : 'bg-muted/30')}>
         <Card className="w-full max-w-md p-6">
           <Card.Header>
-            <Card.Title className="text-xl text-center">Access Denied</Card.Title>
+            <Card.Title className="text-xl text-center">{t('accessDenied')}</Card.Title>
           </Card.Header>
           <Card.Body>
             <AppText className="text-center text-muted-foreground">
-              You don't have admin privileges to access this area.
+              {t('adminPrivileges')}
             </AppText>
           </Card.Body>
         </Card>
@@ -62,15 +65,15 @@ export default function AdminDashboardScreen() {
       <View className="gap-4">
         <Card>
           <Card.Header>
-            <Card.Title className="text-2xl">Admin Dashboard</Card.Title>
-            <Card.Description>Overview of system activity</Card.Description>
+            <Card.Title className="text-2xl">{t('adminDashboard')}</Card.Title>
+            <Card.Description>{t('overviewSystemActivity')}</Card.Description>
           </Card.Header>
         </Card>
 
         {loading ? (
           <Card>
             <Card.Body>
-              <AppText className="text-center">Loading dashboard...</AppText>
+              <AppText className="text-center">{t('loading')}...</AppText>
             </Card.Body>
           </Card>
         ) : (
@@ -79,14 +82,14 @@ export default function AdminDashboardScreen() {
               <Card className="flex-1">
                 <Card.Header>
                   <Card.Title className="text-center">{reports?.users || 0}</Card.Title>
-                  <Card.Description className="text-center">Total Users</Card.Description>
+                  <Card.Description className="text-center">{t('totalUsers')}</Card.Description>
                 </Card.Header>
               </Card>
               
               <Card className="flex-1">
                 <Card.Header>
                   <Card.Title className="text-center">{reports?.attendance || 0}</Card.Title>
-                  <Card.Description className="text-center">Attendance Records</Card.Description>
+                  <Card.Description className="text-center">{t('attendanceRecords')}</Card.Description>
                 </Card.Header>
               </Card>
             </View>
@@ -95,44 +98,44 @@ export default function AdminDashboardScreen() {
               <Card className="flex-1">
                 <Card.Header>
                   <Card.Title className="text-center">{reports?.leaveRequests || 0}</Card.Title>
-                  <Card.Description className="text-center">Leave Requests</Card.Description>
+                  <Card.Description className="text-center">{t('leaveRequests')}</Card.Description>
                 </Card.Header>
               </Card>
               
               <Card className="flex-1">
                 <Card.Header>
                   <Card.Title className="text-center">{reports?.missionRequests || 0}</Card.Title>
-                  <Card.Description className="text-center">Mission Requests</Card.Description>
+                  <Card.Description className="text-center">{t('missionRequests')}</Card.Description>
                 </Card.Header>
               </Card>
             </View>
 
             <Card>
               <Card.Header>
-                <Card.Title>Quick Actions</Card.Title>
+                <Card.Title>{t('quickActions')}</Card.Title>
               </Card.Header>
               <Card.Body className="gap-3">
                 <Button variant="default" className="w-full">
                   <AppText className="text-foreground text-base font-medium">
-                    View Pending Approvals
+                    {t('viewPendingApprovals')}
                   </AppText>
                 </Button>
                 
                 <Button variant="outline" className="w-full">
                   <AppText className="text-foreground text-base font-medium">
-                    Generate Reports
+                    {t('generateReports')}
                   </AppText>
                 </Button>
                 
                 <Button variant="outline" className="w-full">
                   <AppText className="text-foreground text-base font-medium">
-                    Manage Users
+                    {t('manageUsers')}
                   </AppText>
                 </Button>
                 
                 <Button variant="outline" className="w-full">
                   <AppText className="text-foreground text-base font-medium">
-                    Track Work Plans
+                    {t('trackWorkPlans')}
                   </AppText>
                 </Button>
               </Card.Body>

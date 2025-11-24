@@ -3,9 +3,12 @@ import { View, Alert } from 'react-native';
 import { Button, Card, Input, DatePicker, cn, Select } from '../heroui-native';
 import { useAppTheme } from '../contexts/app-theme-context';
 import { useAuth } from '../contexts/auth/auth-context';
+import { useI18n } from '../contexts/i18n-context';
+import { API_BASE_URL } from '../config';
 import { AppText } from '../components/app-text';
 
 export default function WorkPlanScreen() {
+  const { t } = useI18n();
   const { isDark } = useAppTheme();
   const { token } = useAuth();
   const [title, setTitle] = useState('');
@@ -20,24 +23,24 @@ export default function WorkPlanScreen() {
 
   const submitWorkPlan = async () => {
     if (!title.trim()) {
-      Alert.alert('Validation Error', 'Please enter a title for your work plan');
+      Alert.alert(t('validationError'), t('enterWorkPlanTitle'));
       return;
     }
 
     if (!description.trim()) {
-      Alert.alert('Validation Error', 'Please enter a description for your work plan');
+      Alert.alert(t('validationError'), t('enterWorkPlanDescription'));
       return;
     }
 
     if (!dueDate) {
-      Alert.alert('Validation Error', 'Please select a due date for your work plan');
+      Alert.alert(t('validationError'), t('selectDueDate'));
       return;
     }
 
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3000/api/workplan/manage', {
+      const response = await fetch(`${API_BASE_URL}/api/workplan/manage`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,11 +57,11 @@ export default function WorkPlanScreen() {
 
       if (response.ok) {
         Alert.alert(
-          'Success', 
-          'Work plan created successfully!',
+          t('success'), 
+          t('workPlanCreatedSuccess'),
           [
             {
-              text: 'OK',
+              text: t('ok'),
               onPress: () => {
                 // Reset form
                 setTitle('');
@@ -74,11 +77,11 @@ export default function WorkPlanScreen() {
           ]
         );
       } else {
-        throw new Error(data.message || 'Work plan creation failed');
+        throw new Error(data.message || t('workPlanCreationFailed'));
       }
     } catch (error: any) {
       console.error('Work plan error:', error);
-      Alert.alert('Error', error.message || 'An error occurred while creating your work plan');
+      Alert.alert(t('error'), error.message || t('errorCreatingWorkPlan'));
     } finally {
       setLoading(false);
     }
@@ -86,30 +89,30 @@ export default function WorkPlanScreen() {
 
   const updateWorkPlan = async () => {
     // This would be used to update an existing work plan
-    Alert.alert('Info', 'Update functionality will be implemented in a future version');
+    Alert.alert(t('info'), t('updateWorkPlanInfo'));
   };
 
   return (
     <View className={cn('flex-1 justify-start p-4', isDark ? 'bg-background' : 'bg-muted/30')}>
       <Card className="w-full">
         <Card.Header>
-          <Card.Title className="text-2xl text-center">Work Plan</Card.Title>
+          <Card.Title className="text-2xl text-center">{t('workPlan')}</Card.Title>
           <Card.Description className="text-center mt-2">
-            Create and manage your work plans
+            {t('createAndManageWorkPlans')}
           </Card.Description>
         </Card.Header>
         
         <Card.Body className="gap-4">
           <Input
-            label="Title"
-            placeholder="Enter work plan title"
+            label={t('workPlanTitle')}
+            placeholder={t('enterWorkPlanTitle')}
             value={title}
             onChangeText={setTitle}
           />
           
           <Input
-            label="Description"
-            placeholder="Enter work plan details"
+            label={t('workPlanDescription')}
+            placeholder={t('enterWorkPlanDetails')}
             value={description}
             onChangeText={setDescription}
             multiline
@@ -119,60 +122,60 @@ export default function WorkPlanScreen() {
           
           <View className="flex-row gap-2">
             <View className="flex-1">
-              <AppText className="text-foreground mb-1">Due Date</AppText>
+              <AppText className="text-foreground mb-1">{t('dueDate')}</AppText>
               <DatePicker
                 date={dueDate}
                 onDateChange={setDueDate}
                 minimumDate={new Date()}
-                placeholder="Select due date"
+                placeholder={t('selectDueDate')}
               />
             </View>
             
             <View className="flex-1">
-              <AppText className="text-foreground mb-1">Status</AppText>
+              <AppText className="text-foreground mb-1">{t('status')}</AppText>
               <Select
                 value={status}
                 onValueChange={(value: any) => setStatus(value)}
               >
                 <Select.Trigger>
-                  <Select.Value placeholder="Select status" />
+                  <Select.Value placeholder={t('selectStatus')} />
                 </Select.Trigger>
                 <Select.Content>
-                  <Select.Item value="DRAFT">Draft</Select.Item>
-                  <Select.Item value="SUBMITTED">Submitted</Select.Item>
-                  <Select.Item value="IN_PROGRESS">In Progress</Select.Item>
-                  <Select.Item value="COMPLETED">Completed</Select.Item>
-                  <Select.Item value="REJECTED">Rejected</Select.Item>
+                  <Select.Item value="DRAFT">{t('draft')}</Select.Item>
+                  <Select.Item value="SUBMITTED">{t('submitted')}</Select.Item>
+                  <Select.Item value="IN_PROGRESS">{t('inProgress')}</Select.Item>
+                  <Select.Item value="COMPLETED">{t('completed')}</Select.Item>
+                  <Select.Item value="REJECTED">{t('rejected')}</Select.Item>
                 </Select.Content>
               </Select>
             </View>
           </View>
           
           <Input
-            label="Progress (%)"
-            placeholder="Enter progress percentage"
+            label={`${t('progress')} (%)`}
+            placeholder={t('enterProgress')}
             value={progress}
             onChangeText={setProgress}
             keyboardType="numeric"
           />
           
           <Input
-            label="Achievement"
-            placeholder="Enter achievements (optional)"
+            label={t('achievement')}
+            placeholder={t('enterAchievement')}
             value={achievement}
             onChangeText={setAchievement}
           />
           
           <Input
-            label="Output"
-            placeholder="Enter outputs (optional)"
+            label={t('output')}
+            placeholder={t('enterOutput')}
             value={output}
             onChangeText={setOutput}
           />
           
           <Input
-            label="Comments"
-            placeholder="Enter comments (optional)"
+            label={t('comments')}
+            placeholder={t('enterComments')}
             value={comments}
             onChangeText={setComments}
             multiline
@@ -184,14 +187,14 @@ export default function WorkPlanScreen() {
         <Card.Footer className="gap-3">
           <Button onPress={submitWorkPlan} loading={loading}>
             <AppText className="text-foreground text-base font-medium">
-              {loading ? 'Saving...' : 'Create Work Plan'}
+              {loading ? t('saving') : t('createWorkPlan')}
             </AppText>
           </Button>
           
           {status !== 'DRAFT' && (
             <Button onPress={updateWorkPlan} variant="outline">
               <AppText className="text-foreground text-base font-medium">
-                Update Work Plan
+                {t('updateWorkPlan')}
               </AppText>
             </Button>
           )}

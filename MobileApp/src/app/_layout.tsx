@@ -6,7 +6,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/hanuman';
 import { SplashScreen, Stack, router, useSegments } from 'expo-router';
-import { HeroUINativeProvider } from '../heroui-native';
+import { HeroUINativeProvider } from '../../heroui-native';
 import { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';

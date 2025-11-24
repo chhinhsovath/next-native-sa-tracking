@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Button, Dialog } from '../heroui-native';
+import { Button, Dialog } from '../../heroui-native';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { withUniwind } from 'uniwind';

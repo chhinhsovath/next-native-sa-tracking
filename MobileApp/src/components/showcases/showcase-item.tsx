@@ -1,6 +1,6 @@
 import { Image as ExpoImage } from 'expo-image';
 import { useRouter } from 'expo-router';
-import { Chip, cn, Surface } from '../heroui-native';
+import { Chip, cn, Surface } from '../../heroui-native';
 import { Platform, Pressable, StyleSheet, View } from 'react-native';
 import Animated, {
   Extrapolation,

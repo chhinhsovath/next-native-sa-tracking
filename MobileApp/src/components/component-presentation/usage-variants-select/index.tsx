@@ -1,4 +1,4 @@
-import { colorKit, Select, useThemeColor } from '../heroui-native';
+import { colorKit, Select, useThemeColor } from '../../heroui-native';
 import {
   FlatList,
   Platform,

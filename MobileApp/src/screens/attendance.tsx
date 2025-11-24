@@ -4,12 +4,15 @@ import { Button, Card, cn, Text } from '../heroui-native';
 import * as Location from 'expo-location';
 import { useAppTheme } from '../contexts/app-theme-context';
 import { useAuth } from '../contexts/auth/auth-context';
+import { useI18n } from '../contexts/i18n-context';
 import { AppText } from '../components/app-text';
+import { API_BASE_URL } from '../config';
 
 // Define attendance types
 type AttendanceType = 'CHECK_IN_AM' | 'CHECK_OUT_AM' | 'CHECK_IN_PM' | 'CHECK_OUT_PM';
 
 export default function AttendanceScreen() {
+  const { t } = useI18n();
   const { isDark } = useAppTheme();
   const { user, token } = useAuth();
   const [location, setLocation] = useState<Location.LocationObject | null>(null);
@@ -25,7 +28,7 @@ export default function AttendanceScreen() {
       setLocationPermission(status);
       
       if (status !== 'granted') {
-        Alert.alert('Permission denied', 'Location permission is required to check in/out');
+        Alert.alert(t('locationPermissionDenied'), t('locationPermissionRequired'));
         return;
       }
 
@@ -40,12 +43,12 @@ export default function AttendanceScreen() {
 
   const checkInOrOut = async (type: AttendanceType) => {
     if (!location) {
-      Alert.alert('Location Error', 'Unable to get your current location');
+      Alert.alert(t('locationError'), t('unableGetLocation'));
       return;
     }
 
     if (!user) {
-      Alert.alert('Authentication Error', 'User not authenticated');
+      Alert.alert(t('authenticationError'), t('userNotAuthenticated'));
       return;
     }
 
@@ -54,14 +57,14 @@ export default function AttendanceScreen() {
 
     try {
       // Get office locations first
-      const officeResponse = await fetch('http://localhost:3000/api/office/location', {
+      const officeResponse = await fetch(`${API_BASE_URL}/api/office/location`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         }
       });
 
       if (!officeResponse.ok) {
-        throw new Error('Failed to fetch office locations');
+        throw new Error(t('failedToFetchOfficeLocations'));
       }
 
       const offices = await officeResponse.json();
@@ -72,7 +75,7 @@ export default function AttendanceScreen() {
       }
 
       // Submit attendance
-      const response = await fetch('http://localhost:3000/api/attendance/check-in-out', {
+      const response = await fetch(`${API_BASE_URL}/api/attendance/check-in-out`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,26 +92,26 @@ export default function AttendanceScreen() {
 
       if (response.ok) {
         Alert.alert(
-          'Success', 
-          `Successfully ${type.startsWith('CHECK_IN') ? 'checked in' : 'checked out'}!\nStatus: ${data.attendance.status}`,
+          t('success'), 
+          `${type.startsWith('CHECK_IN') ? t('checkInSuccess') : t('checkOutSuccess')}!\nStatus: ${data.attendance.status}`,
           [
             {
-              text: 'OK',
+              text: t('ok'),
               onPress: () => setAttendanceType(null)
             }
           ]
         );
       } else {
-        throw new Error(data.message || 'Attendance submission failed');
+        throw new Error(data.message || t('attendanceSubmissionFailed'));
       }
     } catch (error: any) {
       console.error('Attendance error:', error);
       Alert.alert(
-        'Error', 
-        error.message || 'An error occurred while submitting attendance',
+        t('error'), 
+        error.message || t('errorSubmittingAttendance'),
         [
           {
-            text: 'OK',
+            text: t('ok'),
             onPress: () => {
               setAttendanceType(null);
               setAttendanceType(null);
@@ -126,7 +129,7 @@ export default function AttendanceScreen() {
   };
 
   const formatLocation = (location: Location.LocationObject | null) => {
-    if (!location) return 'Getting location...';
+    if (!location) return t('gettingLocation');
     return `${location.coords.latitude.toFixed(6)}, ${location.coords.longitude.toFixed(6)}`;
   };
 
@@ -134,16 +137,16 @@ export default function AttendanceScreen() {
     <View className={cn('flex-1 justify-start p-4', isDark ? 'bg-background' : 'bg-muted/30')}>
       <Card className="w-full">
         <Card.Header>
-          <Card.Title className="text-2xl text-center">Attendance Check-In/Out</Card.Title>
+          <Card.Title className="text-2xl text-center">{t('attendanceCheckInCheckOut')}</Card.Title>
           <Card.Description className="text-center mt-2">
-            Current Location: {formatLocation(location)}
+            {t('currentLocation')}: {formatLocation(location)}
           </Card.Description>
         </Card.Header>
         
         <Card.Body className="gap-4">
           <View className="items-center mb-4">
             <AppText className="text-lg font-semibold">
-              {location ? formatTime(new Date()) : 'Getting time...'}
+              {location ? formatTime(new Date()) : t('getTime')}
             </AppText>
           </View>
           
@@ -155,7 +158,7 @@ export default function AttendanceScreen() {
               variant="default"
             >
               <AppText className="text-foreground text-base font-medium">
-                {loading && attendanceType === 'CHECK_IN_AM' ? 'Checking In...' : 'Check In AM'}
+                {loading && attendanceType === 'CHECK_IN_AM' ? t('checkingIn') : t('checkInAM')}
               </AppText>
             </Button>
             
@@ -166,7 +169,7 @@ export default function AttendanceScreen() {
               variant="outline"
             >
               <AppText className="text-foreground text-base font-medium">
-                {loading && attendanceType === 'CHECK_OUT_AM' ? 'Checking Out...' : 'Check Out AM'}
+                {loading && attendanceType === 'CHECK_OUT_AM' ? t('checkingOut') : t('checkOutAM')}
               </AppText>
             </Button>
           </View>
@@ -179,7 +182,7 @@ export default function AttendanceScreen() {
               variant="default"
             >
               <AppText className="text-foreground text-base font-medium">
-                {loading && attendanceType === 'CHECK_IN_PM' ? 'Checking In...' : 'Check In PM'}
+                {loading && attendanceType === 'CHECK_IN_PM' ? t('checkingIn') : t('checkInPM')}
               </AppText>
             </Button>
             
@@ -190,7 +193,7 @@ export default function AttendanceScreen() {
               variant="outline"
             >
               <AppText className="text-foreground text-base font-medium">
-                {loading && attendanceType === 'CHECK_OUT_PM' ? 'Checking Out...' : 'Check Out PM'}
+                {loading && attendanceType === 'CHECK_OUT_PM' ? t('checkingOut') : t('checkOutPM')}
               </AppText>
             </Button>
           </View>
@@ -198,7 +201,7 @@ export default function AttendanceScreen() {
           {currentOffice && (
             <View className="mt-4 p-3 bg-muted rounded-lg">
               <AppText className="text-muted-foreground font-medium">
-                Nearest Office: {currentOffice.name}
+                {t('nearestOffice')}: {currentOffice.name}
               </AppText>
               <AppText className="text-muted-foreground">
                 {currentOffice.latitude}, {currentOffice.longitude}
@@ -209,7 +212,7 @@ export default function AttendanceScreen() {
         
         <Card.Footer>
           <AppText className="text-center text-muted-foreground text-sm">
-            Note: You must be within 50 meters of an office location to check in/out
+            {t('noteGeofence')}
           </AppText>
         </Card.Footer>
       </Card>

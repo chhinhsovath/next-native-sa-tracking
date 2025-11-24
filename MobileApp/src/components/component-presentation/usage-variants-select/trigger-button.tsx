@@ -1,4 +1,4 @@
-import { useSelect, useThemeColor } from '../heroui-native';
+import { useSelect, useThemeColor } from '../../heroui-native';
 import Animated, {
   interpolate,
   useAnimatedStyle,

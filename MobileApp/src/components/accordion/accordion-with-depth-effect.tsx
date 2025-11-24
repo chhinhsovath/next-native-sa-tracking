@@ -13,7 +13,7 @@ import {
   useAccordion,
   useAccordionItem,
   useThemeColor,
-} from '../heroui-native';
+} from '../../heroui-native';
 import { createContext, use, useState, type FC } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, {
