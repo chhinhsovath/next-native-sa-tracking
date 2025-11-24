@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { authenticate } from "../../../src/lib/authMiddleware";
 import db from "../../../src/lib/db";
-import { WorkPlanStatus } from "../../../src/generated/prisma/enums";
+import { WorkPlanStatus } from "@prisma/client";
 
 export default async function handler(
   req: NextApiRequest,
