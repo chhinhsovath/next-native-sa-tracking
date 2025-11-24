@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { verifyToken } from "./auth";
-import { Role } from "../generated/prisma/enums";
+import { Role } from "@prisma/client";
 import db from "./db";
 
 export interface AuthenticatedRequest extends NextApiRequest {

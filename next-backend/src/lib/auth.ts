@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { Role } from "../generated/prisma/enums";
+import { Role } from "@prisma/client";
 
 // Helper function to hash passwords
 export const hashPassword = async (password: string): Promise<string> => {
